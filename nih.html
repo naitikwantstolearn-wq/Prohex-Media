@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PureHex Media</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .blurred-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 20%, rgba(59,130,246,0.2), transparent 60%),
+                    radial-gradient(circle at 80% 30%, rgba(168,85,247,0.2), transparent 60%),
+                    radial-gradient(circle at 50% 80%, rgba(255,255,255,0.05), transparent 60%);
+        filter: blur(80px);
+        z-index: -1;
+      }
+      .hidden-scroll-top {
+        display: none;
+      }
+      .scroll-top-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(to right, #3b82f6, #8b5cf6);
+        color: white;
+        padding: 0.75rem 1rem;
+        border-radius: 9999px;
+        font-size: 1.25rem;
+        cursor: pointer;
+        z-index: 50;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+        transition: transform 0.3s ease;
+      }
+      .scroll-top-btn:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body class="bg-black text-white">
+    <div class="blurred-bg"></div>
+
+    <!-- Navbar -->
+    <header class="flex items-center justify-between px-8 py-6 bg-black sticky top-0 z-50">
+      <div class="text-xl font-bold">
+        <img src="logo.png" alt="PureHex Logo" class="h-6 inline-block mr-2" />
+        <span class="text-white">Pure<span class="text-blue-500">Hex</span> Media</span>
+      </div>
+      <nav class="space-x-6 text-sm">
+        <a href="#home" class="hover:text-blue-500">Home</a>
+        <a href="#portfolio" class="hover:text-blue-500">Portfolio</a>
+        <a href="#services" class="hover:text-blue-500">Services</a>
+        <a href="#contact" class="hover:text-blue-500">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="text-center px-6 flex items-center justify-center min-h-screen relative overflow-hidden">
+      <!-- Background video -->
+      <video autoplay muted loop playsinline
+             class="absolute top-0 left-0 w-full h-full object-cover z-[-10] opacity-5">
+        <source src="bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div>
+        <h1 class="text-8xl font-bold mb-4">
+  Design Solutions <br />
+  <span class="text-8xl font-bold text-blue-500">for All</span>
+</h1>
+
+        <br>
+        <br>
+       <p class="text-lg md:text-xl text-gray-100 mb-8 max-w-xl mx-auto">
+  Transform your brand with cutting-edge graphic design that captivates, converts, and creates lasting impressions.
+</p><br>
+
+<div class="space-x-4">
+  <!-- First Button -->
+  <a href="contact.html"
+     class="bg-[#007bfb] hover:bg-black active:bg-black text-white px-8 py-4 rounded-full text-lg transition duration-200">
+     Contact Us
+  </a>
+
+  <!-- Second Button -->
+  <a href="portfolio.html"
+     class="border border-gray-500 text-white px-8 py-4 rounded-full text-lg transition duration-200"
+     onclick="this.classList.add('bg-[#007bfb]', 'text-white');">
+     View Portfolio
+  </a>
+</div>
+
+
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="px-8 py-20 bg-black text-center">
+      <h2 class="text-3xl font-bold mb-4">Our Portfolio</h2>
+      <p class="text-gray-400 mb-12 max-w-xl mx-auto">
+        Discover our creative excellence through a collection of stunning designs that showcase our expertise and innovation.
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <img src="po1 (1).png" alt="Portfolio 1" class="rounded-lg" />
+        <img src="po1 (2).jpg" alt="Portfolio 2" class="rounded-lg" />
+        <img src="po1 (3).jpg" alt="Portfolio 3" class="rounded-lg" />
+        <img src="po1 (4).jpg" alt="Portfolio 4" class="rounded-lg" />
+        <img src="po1 (5).jpg" alt="Portfolio 5" class="rounded-lg" />
+        <img src="po1 (6).png" alt="Portfolio 6" class="rounded-lg" />
+        <img src="po1 (7).jpg" alt="Portfolio 7" class="rounded-lg" />
+        <img src="po1 (8).png" alt="Portfolio 8" class="rounded-lg" />
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="px-8 py-20 bg-black text-center">
+      <h2 class="text-3xl font-bold mb-4">Our Services</h2>
+      <p class="text-gray-400 mb-12 max-w-xl mx-auto">
+        Specialized design solutions tailored for different industries and occasions.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div class="bg-[#0f172a] p-6 rounded-xl text-left">
+          <div class="text-blue-400 mb-2 text-2xl">💙</div>
+          <h3 class="font-semibold text-lg mb-2">Clinics</h3>
+          <p class="text-gray-400 text-sm">Professional healthcare branding and marketing materials that build trust and credibility.</p>
+        </div>
+        <div class="bg-[#0f172a] p-6 rounded-xl text-left">
+          <div class="text-pink-400 mb-2 text-2xl">💅</div>
+          <h3 class="font-semibold text-lg mb-2">Parlour</h3>
+          <p class="text-gray-400 text-sm">Elegant beauty and wellness designs that reflect sophistication and style.</p>
+        </div>
+        <div class="bg-[#0f172a] p-6 rounded-xl text-left">
+          <div class="text-green-400 mb-2 text-2xl">🛍️</div>
+          <h3 class="font-semibold text-lg mb-2">Shops</h3>
+          <p class="text-gray-400 text-sm">Eye-catching retail designs that drive sales and enhance customer experience.</p>
+        </div>
+        <div class="bg-[#0f172a] p-6 rounded-xl text-left">
+          <div class="text-yellow-400 mb-2 text-2xl">🎉</div>
+          <h3 class="font-semibold text-lg mb-2">Festive</h3>
+          <p class="text-gray-400 text-sm">Celebration-themed designs that capture the joy and spirit of special occasions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="px-8 py-20 text-center">
+      <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+      <p class="text-gray-400 mb-8 max-w-xl mx-auto">
+        Ready to transform your brand? Let’s discuss your project and create something amazing together.
+      </p>
+      <div class="bg-[#0f172a] p-8 max-w-xl mx-auto rounded-xl">
+        <a href="contact.html" class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-6 py-3 rounded-full text-sm">
+          Send Message
+        </a>
+      </div>
+    </section>
+
+   <!-- Footer -->
+<footer class="py-14 border-t border-gray-800 text-center text-gray-300 text-base">
+  <p class="text-white text-2xl font-bold mb-4">
+    Pure<span class="text-blue-500">Hex</span> Media
+  </p>
+
+  <div class="space-x-6 mb-4">
+    <img src="fb.png" alt="Facebook" class="inline h-7" />
+    <img src="x.png" alt="Twitter" class="inline h-7" />
+    <img src="in.png" alt="Instagram" class="inline h-7" />
+    <img src="be.png" alt="Behance" class="inline h-7" />
+  </div>
+
+  <p class="text-sm text-gray-500">© 2025 PureHex Media. All rights reserved.</p>
+</footer>
+
+  </body>
+</html>
