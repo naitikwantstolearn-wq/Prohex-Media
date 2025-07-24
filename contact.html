@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - ProHex Media</title>
+    <link rel="icon" type="image/png" href="logo.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      .blurred-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: radial-gradient(circle at 10% 15%, rgba(59,130,246,0.1), transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(168,85,247,0.1), transparent 40%);
+        filter: blur(80px);
+        z-index: -1;
+      }
+      .scroll-top-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(to right, #3b82f6, #8b5cf6);
+        color: white;
+        padding: 0.75rem 1rem;
+        border-radius: 9999px;
+        font-size: 1.25rem;
+        cursor: pointer;
+        z-index: 50;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+        opacity: 0;
+        transform: translateY(100px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .scroll-top-btn.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .scroll-top-btn:hover {
+        transform: scale(1.1);
+      }
+      .fade-in-section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .fade-in-section.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      /* Custom styles for form inputs */
+      .form-input {
+        background-color: #0f172a; /* Same as service cards */
+        border: 1px solid #334155; /* slate-700 */
+        border-radius: 0.5rem; /* rounded-lg */
+        padding: 0.75rem 1rem;
+        color: white;
+        width: 100%;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+      .form-input:focus {
+        outline: none;
+        border-color: #3b82f6; /* blue-500 */
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      }
+      /* Style for the select dropdown arrow */
+      select.form-input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.75rem center;
+        background-repeat: no-repeat;
+        background-size: 1.25em 1.25em;
+      }
+    </style>
+</head>
+
+<body class="bg-black text-white">
+    <div class="blurred-bg"></div>
+
+    <!-- Navbar (Consistent across all pages) -->
+    <header class="bg-black/80 backdrop-blur-sm sticky top-0 z-50">
+      <div class="flex items-center justify-between px-6 py-4">
+        <a href="index.html" class="text-xl font-bold">
+          <img src="logo.png" alt="ProHex Logo" class="h-6 inline-block mr-2" />
+          <span class="text-white">Pro<span class="text-blue-500">Hex</span> Media</span>
+        </a>
+
+        <!-- Hamburger -->
+        <button id="menu-btn" class="md:hidden text-white focus:outline-none z-[60]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path id="menu-icon-top" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16"></path><path id="menu-icon-middle" stroke-linecap="round" stroke-linejoin="round" d="M4 12h16"></path><path id="menu-icon-bottom" stroke-linecap="round" stroke-linejoin="round" d="M4 18h16"></path></svg>
+        </button>
+
+        <!-- Desktop Menu -->
+        <nav class="hidden md:flex space-x-6 text-sm">
+          <a href="index.html#home" class="hover:text-blue-500 transition-colors duration-200">Home</a>
+          <a href="index.html#portfolio" class="hover:text-blue-500 transition-colors duration-200">Portfolio</a>
+          <a href="index.html#services" class="hover:text-blue-500 transition-colors duration-200">Services</a>
+          <a href="contact.html" class="text-blue-500 font-bold transition-colors duration-200">Contact</a>
+          <a href="blog.html" class="hover:text-blue-500 transition-colors duration-200">Blog</a>
+        </nav>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="md:hidden absolute top-0 left-0 w-full bg-black/95 backdrop-blur-md flex-col space-y-2 px-6 pt-20 pb-4 text-sm transform -translate-y-full transition-transform duration-300 ease-in-out z-[55]">
+          <a href="index.html#home" class="block hover:text-blue-500 py-2 mobile-link">Home</a>
+          <a href="index.html#portfolio" class="block hover:text-blue-500 py-2 mobile-link">Portfolio</a>
+          <a href="index.html#services" class="block hover:text-blue-500 py-2 mobile-link">Services</a>
+          <a href="contact.html" class="block text-blue-500 font-bold py-2 mobile-link">Contact</a>
+          <a href="blog.html" class="block hover:text-blue-500 py-2 mobile-link">Blog</a>
+      </div>
+    </header>
+
+    <!-- Contact Section -->
+    <main class="px-6 py-12 sm:py-20">
+      <div class="max-w-3xl mx-auto">
+        <!-- Contact Header -->
+        <div class="text-center mb-12 fade-in-section">
+          <h1 class="text-4xl sm:text-5xl font-bold mb-4">Get In Touch</h1>
+          <p class="text-gray-400 max-w-xl mx-auto">
+            Ready to transform your brand? Let’s discuss your project and create something amazing together.
+          </p>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-[#0f172a]/80 p-6 sm:p-8 rounded-xl border border-slate-800 fade-in-section">
+          <form id="contact-form" novalidate>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Name -->
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                <input type="text" id="name" name="name" class="form-input" required>
+              </div>
+              <!-- Email -->
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                <input type="email" id="email" name="email" class="form-input" required>
+              </div>
+            </div>
+            <!-- Service Dropdown -->
+            <div class="mt-6">
+              <label for="service" class="block text-sm font-medium text-gray-300 mb-2">Service of Interest</label>
+              <select id="service" name="service" class="form-input" required>
+                <option value="" disabled selected>Select a service...</option>
+                <option value="graphic">Graphic Design</option>
+                <option value="logo">Logo</option>
+                <option value="Instagram">Manage Instagram</option>
+                <option value="Festive">Festive Post</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <!-- Description -->
+            <div class="mt-6">
+              <label for="description" class="block text-sm font-medium text-gray-300 mb-2">How can we help?</label>
+              <textarea id="description" name="description" rows="4" class="form-input" required></textarea>
+            </div>
+            <!-- Submit Button -->
+            <div class="mt-8 text-center">
+              <button type="submit" id="submit-button" class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold px-8 py-3 rounded-full text-base transition-all duration-300 inline-block hover:scale-105 w-full sm:w-auto disabled:opacity-50 disabled:cursor-wait">
+                Send Message
+              </button>
+            </div>
+          </form>
+          <!-- This div is for showing success or error messages after submission -->
+          <div id="form-message" class="text-center mt-4"></div>
+        </div>
+      </div>
+    </main>
+
+   <!-- Footer (Consistent across all pages) -->
+   <footer class="py-14 border-t border-gray-800 text-center text-gray-300 text-base fade-in-section mt-20">
+     <p class="text-white text-2xl font-bold mb-4">Pro<span class="text-blue-500">Hex</span> Media</p>
+     <div class="space-x-6 mb-4">
+       <a href="#" class="inline-block transition-transform duration-200 hover:scale-110 hover:-translate-y-1"><img src="fb.png" alt="Facebook" class="h-7" /></a>
+       <a href="#" class="inline-block transition-transform duration-200 hover:scale-110 hover:-translate-y-1"><img src="x.png" alt="Twitter" class="h-7" /></a>
+       <a href="#" class="inline-block transition-transform duration-200 hover:scale-110 hover:-translate-y-1"><img src="in.png" alt="Instagram" class="h-7" /></a>
+       <a href="#" class="inline-block transition-transform duration-200 hover:scale-110 hover:-translate-y-1"><img src="be.png" alt="Behance" class="h-7" /></a>
+     </div>
+     <p class="text-sm text-gray-500">© 2025 ProHex Media. All rights reserved.</p>
+   </footer>
+
+    <!-- "Scroll to Top" button HTML -->
+    <button id="scrollTopBtn" class="scroll-top-btn" title="Go to top">↑</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Standard page logic (menu, scroll buttons, etc.) ---
+    // This part is correct and remains unchanged
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIconTop = document.getElementById('menu-icon-top');
+    const menuIconMiddle = document.getElementById('menu-icon-middle');
+    const menuIconBottom = document.getElementById('menu-icon-bottom');
+    const toggleMenu = () => {
+      const isMenuOpen = mobileMenu.classList.contains('menu-open');
+      mobileMenu.classList.toggle('-translate-y-full');
+      mobileMenu.classList.toggle('menu-open');
+      if (isMenuOpen) {
+          menuIconTop.style.transform = 'rotate(0) translateY(0)';
+          menuIconMiddle.style.opacity = '1';
+          menuIconBottom.style.transform = 'rotate(0) translateY(0)';
+      } else {
+          menuIconTop.style.transform = 'rotate(45deg) translateY(7.5px)';
+          menuIconMiddle.style.opacity = '0';
+          menuIconBottom.style.transform = 'rotate(-45deg) translateY(-7.5px)';
+      }
+    };
+    menuBtn.addEventListener('click', toggleMenu);
+    document.querySelectorAll('.mobile-link').forEach(link => { link.addEventListener('click', () => { if(mobileMenu.classList.contains('menu-open')) { toggleMenu(); } }); });
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.onscroll = function() { if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) { scrollTopBtn.classList.add('visible'); } else { scrollTopBtn.classList.remove('visible'); } };
+    scrollTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    const sections = document.querySelectorAll('.fade-in-section');
+    const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } }); }, { threshold: 0.1 });
+    sections.forEach(section => { observer.observe(section); });
+
+
+    // --- SUPABASE FORM HANDLING LOGIC ---
+
+    const SUPABASE_URL = 'https://oasulubendppqzjbkegb.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hc3VsdWJlbmRwcHF6amJrZWdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzNTQ5NzQsImV4cCI6MjA2ODkzMDk3NH0.Vpds3rCcSFQFJSKYrJCPwyZEwhWIOW0RquDrApm6c-Q';
+
+    // *** THE FIX IS HERE ***
+    // The Supabase library from the CDN creates a global object called 'supabase'.
+    // We initialize our client from that global object and store it in a NEW constant with a different name.
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const contactForm = document.getElementById('contact-form');
+    const submitButton = document.getElementById('submit-button');
+    const formMessage = document.getElementById('form-message');
+
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+      formMessage.textContent = '';
+
+      const formData = new FormData(contactForm);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const service = formData.get('service');
+      const description = formData.get('description');
+
+      try {
+        // *** THE FIX IS APPLIED HERE ***
+        // We use our newly named constant 'supabaseClient' to interact with the database.
+        const { data, error } = await supabaseClient
+          .from('contacts')
+          .insert([
+            { name, email, service, description },
+          ]);
+
+        if (error) {
+          throw error;
+        }
+
+        window.location.href = 'thank-you.html';
+
+      } catch (error) {
+        formMessage.textContent = 'An error occurred. Please try again.';
+        formMessage.style.color = '#ef4444';
+        console.error('Error submitting form:', error.message);
+
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send Message';
+      }
+    });
+  });
+</script>
+</body>
+</html>
