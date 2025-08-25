@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ProHex Media</title>
+    <title>PureHex Media</title>
     <link rel="icon" type="image/png" href="logo.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       html {
         scroll-behavior: smooth;
       }
-      /* --- MODIFIED: Removed the central gradient to keep the center black --- */
       .blurred-bg {
         position: absolute;
         top: 0;
@@ -55,26 +54,54 @@
         transform: translateY(0);
       }
     </style>
-    <!-- Tailwind custom animation -->
-<style>
-  @keyframes reveal {
-    0% {
-      opacity: 0;
-      transform: translateY(0.5rem);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+    <!-- Tailwind custom animations -->
+    <style>
+      @keyframes reveal {
+        0% {
+          opacity: 0;
+          transform: translateY(0.5rem);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-reveal {
+        animation: reveal 1s ease-in-out forwards;
+      }
 
-  .animate-reveal {
-    animation: reveal 1s ease-in-out forwards;
-  }
-</style>
-    <!-- Alpine.js (place in <head> or before </body>) -->
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
+      /* Shine effect animation for selected plan */
+      @keyframes shine {
+        0% {
+          transform: translateX(-100%) skewX(-25deg);
+        }
+        100% {
+          transform: translateX(200%) skewX(-25deg);
+        }
+      }
+      .shine-effect {
+        position: relative;
+        overflow: hidden;
+      }
+      .shine-effect::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.1) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        animation: shine 5s linear infinite;
+        z-index: 1;
+      }
+    </style>
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 
 <body class="bg-black text-white">
@@ -84,22 +111,16 @@
     <header class="bg-black/80 backdrop-blur-sm sticky top-0 z-50">
       <div class="flex items-center justify-between px-6 py-4">
         <a href="#home" class="text-xl font-bold">
-          <img src="logo.png" alt="ProHex
-   Logo" class="h-6 inline-block mr-2" />
-          <span class="text-white">Pro<span class="text-blue-500">Hex</span> Media</span>
+          <img src="logo.png" alt="PureHex Logo" class="h-6 inline-block mr-2" />
+          <span class="text-white">Pure<span class="text-blue-500">Hex</span> Media</span>
         </a>
-
-        <!-- Hamburger -->
         <button id="menu-btn" class="md:hidden text-white focus:outline-none z-[60]">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path id="menu-icon-top" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16" class="transition-transform duration-300"></path>
             <path id="menu-icon-middle" stroke-linecap="round" stroke-linejoin="round" d="M4 12h16" class="transition-opacity duration-300"></path>
             <path id="menu-icon-bottom" stroke-linecap="round" stroke-linejoin="round" d="M4 18h16" class="transition-transform duration-300"></path>
           </svg>
         </button>
-
-        <!-- Desktop Menu -->
         <nav class="hidden md:flex space-x-6 text-sm">
           <a href="#home" class="hover:text-blue-500 transition-colors duration-200">Home</a>
           <a href="#portfolio" class="hover:text-blue-500 transition-colors duration-200">Portfolio</a>
@@ -108,10 +129,7 @@
           <a href="blog.html" class="hover:text-blue-500 transition-colors duration-200">Blog</a>
         </nav>
       </div>
-
-      <!-- Mobile Menu -->
-      <div id="mobile-menu"
-           class="md:hidden absolute top-0 left-0 w-full bg-black/95 backdrop-blur-md flex-col space-y-2 px-6 pt-20 pb-4 text-sm transform -translate-y-full transition-transform duration-300 ease-in-out z-[55]">
+      <div id="mobile-menu" class="md:hidden absolute top-0 left-0 w-full bg-black/95 backdrop-blur-md flex-col space-y-2 px-6 pt-20 pb-4 text-sm transform -translate-y-full transition-transform duration-300 ease-in-out z-[55]">
         <a href="#home" class="block hover:text-blue-500 py-2 mobile-link">Home</a>
         <a href="#portfolio" class="block hover:text-blue-500 py-2 mobile-link">Portfolio</a>
         <a href="#services" class="block hover:text-blue-500 py-2 mobile-link">Services</a>
@@ -120,23 +138,13 @@
       </div>
     </header>
 
-
-    <!-- Include Alpine.js in your <head> or just before </body> -->
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
 <section id="home" class="text-center px-4 sm:px-6 flex flex-col justify-start pt-60 min-h-screen relative overflow-hidden">
-  <!-- Background Video -->
   <video id="bgVideo" autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-[-10] opacity-100">
     <source src="basic.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
-
-  <!-- Dark Overlay for Text Clarity -->
   <div class="absolute inset-0 bg-black/60 backdrop-blur-sm z-0"></div>
-
-  <!-- Content with Heading Animation -->
-  <div class="max-w-3xl mx-auto relative z-10" 
-       x-data="{
+  <div class="max-w-3xl mx-auto relative z-10" x-data="{
          headings: [
            { text: 'Design Solutions', highlight: 'for All' },
            { text: 'Creative Ideas', highlight: 'for Every Brand' },
@@ -148,54 +156,34 @@
              this.current = (this.current + 1) % this.headings.length;
            }, 4000)
          }
-       }"
-       x-init="rotate()">
-
-    <!-- Dynamic Heading -->
+       }" x-init="rotate()">
     <template x-for="(heading, index) in headings" :key="index">
-      <h1 
-        x-show="current === index"
-        x-transition:enter="transition-opacity duration-700"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition-opacity duration-700"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-tight text-white absolute w-full"
-      >
+      <h1 x-show="current === index" x-transition:enter="transition-opacity duration-700" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-700" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-tight text-white absolute w-full">
         <span x-text="heading.text"></span><br />
         <span class="text-blue-500 font-bold inline-block animate-reveal" x-text="heading.highlight"></span>
       </h1>
     </template>
-    <!-- This empty div is necessary to create space for the absolutely positioned h1 tags -->
     <div class="h-48 sm:h-56"></div>
-
-    <!-- Paragraph -->
     <p class="text-base sm:text-lg md:text-xl text-gray-100 mb-8 px-2">
       Transform your brand with cutting-edge graphic design that captivates, converts, and creates lasting impressions.
     </p>
-
-    <!-- Buttons -->
     <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
       <a href="contact.html"
-         class="bg-[#007bfb] hover:bg-blue-600 active:bg-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105">
+         class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105">
          Contact Us
       </a>
       <a href="#portfolio"
-         class="border border-gray-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:bg-[#007bfb] hover:border-[#007bfb] hover:scale-105">
+         class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg transition-all duration-300 hover:scale-105">
          View Portfolio
       </a>
     </div>
   </div>
 </section>
 
-    <!-- ====================================================== -->
-    <!-- NEW: Brand Video Section -->
-    <!-- ====================================================== -->
     <section id="intro-video" class="px-8 py-20 bg-black text-center fade-in-section">
       <h2 class="text-3xl font-bold mb-4">Introduction</h2>
       <p class="text-gray-400 mb-12 max-w-xl mx-auto">
-        A quick glimpse into our passion for design and the value we bring to every project we touch.
+        A quick glimpse into our passion for design and the value we bring to every Pureject we touch.
       </p>
       <div class="max-w-4xl mx-auto rounded-xl overflow-hidden border border-slate-700 shadow-2xl shadow-blue-500/10">
         <video controls class="w-full h-auto" preload="metadata" poster="snap.png">
@@ -204,11 +192,7 @@
         </video>
       </div>
     </section>
-    <!-- ====================================================== -->
-    <!-- End of New Section -->
-    <!-- ====================================================== -->
 
-    <!-- Portfolio -->
     <section id="portfolio" class="px-8 py-20 bg-black text-center fade-in-section">
       <h2 class="text-3xl font-bold mb-4">Our Portfolio</h2>
       <p class="text-gray-400 mb-12 max-w-xl mx-auto">
@@ -226,7 +210,6 @@
       </div>
     </section>
 
-    <!-- Services -->
     <section id="services" class="px-8 py-20 bg-black text-center fade-in-section">
       <h2 class="text-3xl font-bold mb-4">Our Services</h2>
       <p class="text-gray-400 mb-12 max-w-xl mx-auto">
@@ -236,7 +219,7 @@
         <div class="bg-[#0f172a] p-6 rounded-xl text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20">
           <div class="text-blue-400 mb-2 text-2xl">💙</div>
           <h3 class="font-semibold text-lg mb-2">Clinics</h3>
-          <p class="text-gray-400 text-sm">Professional healthcare branding and marketing materials that build trust and credibility.</p>
+          <p class="text-gray-400 text-sm">Purefessional healthcare branding and marketing materials that build trust and credibility.</p>
         </div>
         <div class="bg-[#0f172a] p-6 rounded-xl text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-pink-500/20">
           <div class="text-pink-400 mb-2 text-2xl">💅</div>
@@ -256,11 +239,136 @@
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- ======================================================================= -->
+    <!-- START: DYNAMIC PRICING SECTION -->
+    <!-- ======================================================================= -->
+    <section id="pricing" class="px-8 py-20 bg-black text-center fade-in-section" x-data="{ selectedPlan: 'essential' }">
+      <h2 class="text-3xl font-bold mb-4">Choose Your Plan</h2>
+      <p class="text-gray-400 mb-12 max-w-xl mx-auto">
+        Find the perfect plan to elevate your social media presence.
+      </p>
+
+      <!-- Pricing Plans Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+        
+        <!-- Starter Plan -->
+        <div @click="selectedPlan = 'starter'" class="bg-[#0f172a] p-8 rounded-xl text-left flex flex-col cursor-pointer transition-all duration-300" 
+             :class="{
+                'ring-2 ring-blue-500 shadow-2xl shadow-blue-500/30 transform scale-105 shine-effect': selectedPlan === 'starter',
+                'hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20': selectedPlan !== 'starter'
+             }">
+          <h3 class="font-bold text-2xl mb-1 text-center">Starter Plan</h3>
+          <p class="text-purple-400 mb-6 text-center">Best Start</p>
+          <ul class="space-y-3 text-gray-300 mb-8 flex-grow">
+            <li class="flex items-center"><span class="text-purple-400 mr-3">✔</span> 15 Posts per month</li>
+            <li class="flex items-center"><span class="text-purple-400 mr-3">✔</span> 3 Reels</li>
+            <li class="flex items-center"><span class="text-purple-400 mr-3">✔</span> Story update twice a week</li>
+            <li class="flex items-center"><span class="text-purple-400 mr-3">✔</span> Engaging Captions</li>
+            <li class="flex items-center"><span class="text-purple-400 mr-3">✔</span> 1 Social media account</li>
+            <li class="text-xs text-gray-500 ml-6">(Instagram or Facebook)</li>
+          </ul>
+          <div class="text-center mt-auto">
+            <p class="text-gray-500 line-through">₹4999/-</p>
+            <p class="text-4xl font-bold text-white mb-1">₹3499<span class="text-base font-normal text-gray-400">/month</span></p>
+          </div>
+        </div>
+
+        <!-- Essential Plan -->
+        <div @click="selectedPlan = 'essential'" class="bg-[#0f172a] p-8 rounded-xl text-left flex flex-col cursor-pointer transition-all duration-300 relative overflow-hidden"
+             :class="{
+                'ring-2 ring-blue-500 shadow-2xl shadow-blue-500/30 transform scale-105 shine-effect': selectedPlan === 'essential',
+                'hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20': selectedPlan !== 'essential'
+             }">
+          <!-- Best Seller Badge -->
+          <div class="absolute top-3 -right-11 transform rotate-45 bg-gradient-to-r from-green-400 to-teal-500 text-center text-white text-xs font-semibold py-1 w-32">
+            Best Seller
+          </div>
+          <h3 class="font-bold text-2xl mb-1 text-center">Essential Plan</h3>
+          <p class="text-blue-400 mb-6 text-center">Best Seller</p>
+          <ul class="space-y-3 text-gray-300 mb-8 flex-grow">
+            <li class="flex items-center"><span class="text-blue-400 mr-3">✔</span> 15 Posts per month</li>
+            <li class="flex items-center"><span class="text-blue-400 mr-3">✔</span> 5 Reels</li>
+            <li class="flex items-center"><span class="text-blue-400 mr-3">✔</span> Daily story update</li>
+            <li class="flex items-center"><span class="text-blue-400 mr-3">✔</span> Copywriting</li>
+            <li class="flex items-center"><span class="text-blue-400 mr-3">✔</span> Engaging Captions</li>
+            <li class="flex items-center"><span class="text-blue-400 mr-3">✔</span> 2 Social media accounts</li>
+            <li class="text-xs text-gray-500 ml-6">(Instagram + Facebook)</li>
+            <li class="flex items-center"><span class="text-blue-400 mr-3">✔</span> Reply to comments</li>
+            <li class="flex items-center"><span class="text-blue-400 mr-3">✔</span> Ad setup</li>
+            <li class="text-xs text-gray-500 ml-6">(Zero credits included)</li>
+          </ul>
+          <div class="text-center mt-auto">
+            <p class="text-gray-500 line-through">₹7499/-</p>
+            <p class="text-4xl font-bold text-white mb-1">₹5999<span class="text-base font-normal text-gray-400">/month</span></p>
+          </div>
+        </div>
+
+        <!-- Maxx Plan -->
+        <div @click="selectedPlan = 'maxx'" class="bg-[#0f172a] p-8 rounded-xl text-left flex flex-col cursor-pointer transition-all duration-300"
+             :class="{
+                'ring-2 ring-blue-500 shadow-2xl shadow-blue-500/30 transform scale-105 shine-effect': selectedPlan === 'maxx',
+                'hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/20': selectedPlan !== 'maxx'
+             }">
+          <h3 class="font-bold text-2xl mb-1 text-center">Maxx Plan</h3>
+          <p class="text-green-400 mb-6 text-center">Best Value</p>
+          <ul class="space-y-3 text-gray-300 mb-8 flex-grow">
+            <li class="flex items-center"><span class="text-green-400 mr-3">✔</span> 20 Posts per month</li>
+            <li class="flex items-center"><span class="text-green-400 mr-3">✔</span> 10 Reels</li>
+            <li class="flex items-center"><span class="text-green-400 mr-3">✔</span> Daily story update</li>
+            <li class="flex items-center"><span class="text-green-400 mr-3">✔</span> Copywriting</li>
+            <li class="flex items-center"><span class="text-green-400 mr-3">✔</span> Engaging Captions</li>
+            <li class="flex items-center"><span class="text-green-400 mr-3">✔</span> 2 Social media accounts</li>
+            <li class="text-xs text-gray-500 ml-6">(Instagram + Facebook)</li>
+            <li class="flex items-center"><span class="text-green-400 mr-3">✔</span> Reply to comments</li>
+            <li class="flex items-center"><span class="text-green-400 mr-3">✔</span> Ad setup</li>
+            <li class="text-xs text-gray-500 ml-6">(1000 credits included)</li>
+          </ul>
+          <div class="text-center mt-auto">
+            <p class="text-gray-500 line-through">₹10499/-</p>
+            <p class="text-4xl font-bold text-white mb-1">₹9999<span class="text-base font-normal text-gray-400">/month</span></p>
+          </div>
+        </div>
+      </div>
+      
+      <a :href="`contact.html?service=${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)}%20Plan`"
+         class="inline-block bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-4 rounded-full text-lg transition-all duration-300 hover:scale-105">
+        Buy Selected Plan
+      </a>
+
+      <div class="max-w-4xl mx-auto mt-16 text-left">
+          <h3 class="font-bold text-xl mb-4 text-center">Terms & Conditions</h3>
+          <ol class="list-decimal list-inside space-y-2 text-sm text-gray-400">
+              <li>Payments: All payments are fixed and non-refundable.</li>
+              <li>Plan Limits: If deliverables exceed plan limits, additional charges will apply as per agreed rates.</li>
+              <li>Plan Changes:
+                  <ul class="list-disc list-inside ml-6 mt-1">
+                      <li>Downgrades are not allowed before plan expiry.</li>
+                      <li>Upgrades can be made anytime by paying the difference.</li>
+                  </ul>
+              </li>
+              <li>Revisions: Each creative includes up to 2 rounds of revisions. Any further changes may be billed separately.</li>
+              <li>Validity: Deliverables are valid for 30 days from the start date. If used earlier, additional content can be purchased as add-ons.</li>
+              <li>Ad Spend: Advertising spend is always billed separately from management fees.</li>
+              <li>Ownership: Final creatives are owned by the client after full payment. Source/project files remain the property of the service provider unless agreed otherwise.</li>
+              <li>Communication: Approvals, revisions, and deliverables will be coordinated through email/WhatsApp/Drive for record-keeping.</li>
+          </ol>
+      </div>
+
+      <div class="mt-12 text-center">
+          <p class="text-blue-400 mb-4 font-semibold">* New</p>
+          <a href="#" class="inline-block bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-3 rounded-full text-base transition-all duration-300 hover:scale-105">
+              Buy a customized plan using our new credit system.
+          </a>
+      </div>
+    </section>
+    <!-- ======================================================================= -->
+    <!-- END: DYNAMIC PRICING SECTION -->
+    <!-- ======================================================================= -->
+
     <section id="contact" class="px-8 py-20 text-center fade-in-section">
       <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
       <p class="text-gray-400 mb-8 max-w-xl mx-auto">
-        Ready to transform your brand? Let’s discuss your project and create something amazing together.
+        Ready to transform your brand? Let’s discuss your Pureject and create something amazing together.
       </p>
       <div class="bg-[#0f172a] p-8 max-w-xl mx-auto rounded-xl">
         <a href="contact.html" class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-6 py-3 rounded-full text-sm transition-all duration-300 inline-block hover:scale-105">
@@ -269,30 +377,25 @@
       </div>
     </section>
 
-   <!-- Footer -->
    <footer class="py-14 border-t border-gray-800 text-center text-gray-300 text-base fade-in-section">
      <p class="text-white text-2xl font-bold mb-4">
-       Pro<span class="text-blue-500">Hex</span> Media
+       Pure<span class="text-blue-500">Hex</span> Media
      </p>
      <div class="space-x-6 mb-4">
-       <a href="mailto:connect.prohex@outlook.com" class="inline-block transition-transform duration-200 hover:scale-110 hover:-translate-y-1"><img src="fb.png" alt="Facebook" class="h-7" /></a>
+       <a href="mailto:connect.Purehex@outlook.com" class="inline-block transition-transform duration-200 hover:scale-110 hover:-translate-y-1"><img src="fb.png" alt="Facebook" class="h-7" /></a>
        <a href="#" class="inline-block transition-transform duration-200 hover:scale-110 hover:-translate-y-1"><img src="x.png" alt="Twitter" class="h-7" /></a>
-       <a href="https://www.instagram.com/prohexmedia?igsh=dHF6bGk1dWpzdzJ3" class="inline-block transition-transform duration-200 hover:scale-110 hover:-translate-y-1"><img src="in.png" alt="Instagram" class="h-7" /></a>
+       <a href="https://www.instagram.com/Purehexmedia?igsh=dHF6bGk1dWpzdzJ3" class="inline-block transition-transform duration-200 hover:scale-110 hover:-translate-y-1"><img src="in.png" alt="Instagram" class="h-7" /></a>
        <a href="#" class="inline-block transition-transform duration-200 hover:scale-110 hover:-translate-y-1"><img src="be.png" alt="Behance" class="h-7" /></a>
      </div>
-     <p class="text-sm text-gray-500">© 2025 ProHex Media. All rights reserved.</p>
+     <p class="text-sm text-gray-500">© 2025 PureHex Media. All rights reserved.</p>
    </footer>
 
-    <!-- "Scroll to Top" button HTML -->
     <button id="scrollTopBtn" class="scroll-top-btn" title="Go to top">
-        ↑ <!-- Up arrow character -->
+        ↑
     </button>
 
-    <!-- Main script for all dynamic interactions -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-
-        // --- Mobile Menu Toggle ---
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIconTop = document.getElementById('menu-icon-top');
@@ -302,11 +405,8 @@
 
         const toggleMenu = () => {
           const isMenuOpen = mobileMenu.classList.contains('menu-open');
-          
           mobileMenu.classList.toggle('-translate-y-full');
           mobileMenu.classList.toggle('menu-open');
-
-          // Animate hamburger to 'X' and back
           if (isMenuOpen) {
               menuIconTop.style.transform = 'rotate(0) translateY(0)';
               menuIconMiddle.style.opacity = '1';
@@ -319,12 +419,10 @@
         };
 
         menuBtn.addEventListener('click', toggleMenu);
-        // Close menu when a link is clicked
         mobileLinks.forEach(link => {
             link.addEventListener('click', toggleMenu);
         });
 
-        // --- Scroll to Top Button ---
         const scrollTopBtn = document.getElementById('scrollTopBtn');
         window.onscroll = function() {
           if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
@@ -337,7 +435,6 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // --- Animate Sections on Scroll ---
         const sections = document.querySelectorAll('.fade-in-section');
         const heroSection = document.querySelector('#home .fade-in-section');
 
@@ -355,20 +452,20 @@
           observer.observe(section);
         });
         
-        // --- Make Hero section visible on page load ---
         setTimeout(() => {
             if(heroSection) {
                 heroSection.classList.add('is-visible');
             }
-        }, 100); // Small delay to ensure styles are applied
+        }, 100);
       });
     </script>
     <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const video = document.getElementById("bgVideo");
-    video.playbackRate = 0.7; // 0.5 = half speed; try 0.75, 0.25, etc.
-  });
-</script>
-
+      document.addEventListener("DOMContentLoaded", function () {
+        const video = document.getElementById("bgVideo");
+        if (video) {
+          video.playbackRate = 0.7;
+        }
+      });
+    </script>
 </body>
 </html>
